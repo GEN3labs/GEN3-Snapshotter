@@ -2,8 +2,10 @@
 const fs = require("fs");
 const getDriveService = require("./gdrive");
 
+require("dotenv").config();
+
 const uploadSingleFile = async (filePath, fileName) => {
-  const folderId = "1NJqb-QaObb2T6ilP3tzy-xyIcXyAZ6cj";
+  const folderId = process.env.FOLDER_ID;
   let drive = getDriveService();
   const { data: { id, name } = {} } = await drive.files.create({
     resource: {

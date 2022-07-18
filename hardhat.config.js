@@ -13,17 +13,6 @@ task("snapshot", "Snapshot")
   .setAction(async (taskArgs, hre) => {
     console.log("🚀 | .setAction | taskArgs", taskArgs);
     console.log("Snapshotting...");
-    await network.provider.request({
-      method: "hardhat_reset",
-      params: [
-        {
-          forking: {
-            jsonRpcUrl: process.env.ALCHEMY_RPC,
-            blockNumber: Number(taskArgs.block),
-          },
-        },
-      ],
-    });
     await snapshot(taskArgs.address);
   });
 
@@ -34,6 +23,8 @@ function checkSetup(envVariable) {
 }
 // Check Setup Default Values
 checkSetup("ALCHEMY_RPC");
+checkSetup("FOLDER_ID");
+checkSetup("BLOCK_NUMBER");
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
@@ -49,7 +40,7 @@ module.exports = {
     hardhat: {
       forking: {
         url: process.env.ALCHEMY_RPC,
-        blockNumber: 15144594,
+        blockNumber: process.env.BLOCK_NUMBER,
       },
       mining: {
         auto: true,
