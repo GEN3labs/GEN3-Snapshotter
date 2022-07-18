@@ -36,11 +36,10 @@ module.exports = {
       url: "http://127.0.0.1:8545",
       saveDeployments: true,
     },
-
     hardhat: {
       forking: {
         url: process.env.ALCHEMY_RPC,
-        blockNumber: process.env.BLOCK_NUMBER,
+        blockNumber: Number(process.env.BLOCK_NUMBER),
       },
       mining: {
         auto: true,
